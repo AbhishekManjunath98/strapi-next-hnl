@@ -46,7 +46,8 @@ export function flattenAttributes(data: any): any {
 }
 
 export function getStrapiURL() {
-  return process.env.NEXT_PUBLIC_STRAPI_URL ?? "http://localhost:1337";
+  // return "elegant-excellence-df7f8bc53c.strapiapp.com" ?? "http://127.0.0.1:1337";
+  return "http://127.0.0.1:1337";
 }
 
 export function getStrapiMedia(url: string | null) {

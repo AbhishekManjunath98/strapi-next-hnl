@@ -1,0 +1,72 @@
+{
+  "kind": "collectionType",
+  "collectionName": "properties",
+  "info": {
+    "singularName": "property",
+    "pluralName": "properties",
+    "displayName": "Property",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "buyTpe": {
+      "type": "enumeration",
+      "enum": [
+        "sell",
+        "rent"
+      ],
+      "required": true,
+      "default": "sell"
+    },
+    "propertyCategory": {
+      "type": "enumeration",
+      "enum": [
+        "residential",
+        "commertial"
+      ]
+    },
+    "propertyType": {
+      "type": "enumeration",
+      "enum": [
+        "FlatApartement",
+        "BuilderFloor",
+        "IndependentHouse",
+        "Penthouse",
+        "ResidentialLand",
+        "FarmHouse",
+        "ServicedApartments",
+        "OneRKStudioApartements",
+        "VillamentRowHouse",
+        "AgriculturalLandPlots",
+        "Others",
+        "Officespace",
+        "ShopRetail",
+        "Hospitality",
+        "Storages",
+        "IndustrialPlotLand",
+        "CommercicalPlotLand",
+        "Industry",
+        "OtherCommercialSpaces"
+      ],
+      "required": true
+    },
+    "location": {
+      "type": "string"
+    },
+    "locationName": {
+      "type": "string"
+    },
+    "propertyName": {
+      "type": "string"
+    },
+    "houseNo": {
+      "type": "string"
+    },
+    "ownershipType": {
+      "type": "string"
+    }
+  }
+}

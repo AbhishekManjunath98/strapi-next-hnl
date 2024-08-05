@@ -4,11 +4,14 @@ export interface ComponentsFeature extends Schema.Component {
   collectionName: 'components_components_features';
   info: {
     displayName: 'Feature';
+    description: '';
   };
   attributes: {
-    heading: Attribute.String;
-    subHeading: Attribute.Text;
+    propertyName: Attribute.String;
+    propertyDescription: Attribute.Text;
     icon: Attribute.Enumeration<['CLOCK_ICON', 'CHECK_ICON', 'CLOUD_ICON']>;
+    propertyImage: Attribute.Media;
+    builderLogo: Attribute.Media;
   };
 }
 

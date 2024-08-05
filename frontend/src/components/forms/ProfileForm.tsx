@@ -72,7 +72,7 @@ export function ProfileForm({
             defaultValue={data.email || ""}
             disabled
           />
-          <CountBox text={data.credits} />
+          {/* <CountBox text={data.credits} /> */}
         </div>
 
         <div className="grid grid-cols-2 gap-4">

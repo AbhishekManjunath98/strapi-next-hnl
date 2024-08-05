@@ -1,3 +1,7 @@
+"use client";
+import { cn } from "@/lib/utils";
+import Image from "next/image";
+
 function getIcon(name: string) {
   switch (name) {
     case "CLOCK_ICON":
@@ -13,9 +17,11 @@ function getIcon(name: string) {
 
 interface FeatureProps {
   id: number;
-  heading: string;
-  subHeading: string;
+  propertyName: string;
+  propertyDescription: string;
   icon: string;
+  propertyImage: string;
+  builderLogo: string;
 }
 
 interface FeatureSectionProps {
@@ -32,6 +38,7 @@ export function FeatureSection({
   readonly data: FeatureSectionProps;
 }) {
   const { feature } = data;
+  console.log(feature)
   return (
     <div className="">
       <div className="flex-1">
@@ -42,17 +49,54 @@ export function FeatureSection({
                 key={feature.id}
                 className="flex flex-col items-center text-center"
               >
-                {getIcon(feature.icon)}
-                <h2 className="mb-4 text-2xl font-bold">{feature.heading}</h2>
+                {/* {getIcon(feature.icon)}
+                <h2 className="mb-4 text-2xl font-bold">{feature.propertyName}</h2>
                 <p className="text-gray-500">
-                  {feature.subHeading}
-                </p>
+                  {feature.propertyDescription}
+                </p> */}
+
+<div className="max-w-xs w-full group/card">
+    <div
+      className={cn(
+        " cursor-pointer overflow-hidden relative card h-96 rounded-md shadow-xl  max-w-sm mx-auto backgroundImage flex flex-col justify-between p-4",
+        "bg-[url(https://images.unsplash.com/photo-1544077960-604201fe74bc?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1651&q=80)] bg-cover"
+      )}
+    >
+      <div className="absolute w-full h-full top-0 left-0 transition duration-300 group-hover/card:bg-black opacity-60"></div>
+      <div className="flex flex-row items-center space-x-4 z-10">
+        <Image
+          height="100"
+          width="100"
+          alt="Avatar"
+          src={feature.builderLogo}
+          className="h-10 w-10 rounded-full border-2 object-cover"
+        />
+        <div className="flex flex-col">
+          <p className="font-normal text-base text-gray-50 relative z-10">
+            Brigade group
+          </p>
+          <p className="text-sm text-gray-400">Yeshwanthpur</p>
+        </div>
+      </div>
+      <div className="text content">
+        <h1 className="font-bold text-xl md:text-2xl text-gray-50 relative z-10">
+          {feature.propertyName}
+        </h1>
+        <p className="font-normal text-sm text-gray-50 relative z-10 my-4">
+          {feature.propertyDescription}
+        </p>
+      </div>
+    </div>
+  </div>
               </div>
             ))}
           </div>
         </section>
       </div>
     </div>
+
+
+
   );
 }
 
@@ -113,3 +157,5 @@ function CloudIcon(props: any) {
     </svg>
   );
 }
+
+
