@@ -1,6 +1,37 @@
 module.exports = [
   'strapi::logger',
   'strapi::errors',
+  // {
+  //   name: "strapi::security",
+  //   config: {
+  //     contentSecurityPolicy: {
+  //       useDefaults: true,
+  //       directives: {
+  //         "connect-src": ["'self'", "https:"],
+  //         "img-src": [
+  //           "'self'",
+  //           "data:",
+  //           "blob:",
+  //           "https://market-assets.strapi.io",
+  //           "https://tile.openstreetmap.org",
+  //           "https://a.tile.openstreetmap.org",
+  //           "https://b.tile.openstreetmap.org",
+  //           "https://c.tile.openstreetmap.org",
+  //         ],
+  //         "media-src": ["'self'", "data:", "blob:"],
+  //         upgradeInsecureRequests: null,
+  //       },
+  //     },
+  //   },
+  // },
+  // {
+  //   name: "strapi::security",
+  //   config: {
+  //     contentSecurityPolicy: {
+  //       directives: { "script-src": ["'self'", "'unsafe-inline'", "maps.googleapis.com"] },
+  //     },
+  //   },
+  // },
   'strapi::security',
   'strapi::cors',
   'strapi::poweredBy',

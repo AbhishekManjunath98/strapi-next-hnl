@@ -1,0 +1,21 @@
+{
+  "kind": "collectionType",
+  "collectionName": "segregations",
+  "info": {
+    "singularName": "segregation",
+    "pluralName": "segregations",
+    "displayName": "Segregation"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "builders": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::builder.builder",
+      "mappedBy": "segregation"
+    }
+  }
+}

@@ -1,0 +1,61 @@
+{
+  "kind": "collectionType",
+  "collectionName": "builders",
+  "info": {
+    "singularName": "builder",
+    "pluralName": "builders",
+    "displayName": "Builder",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "properties": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::property.property",
+      "mappedBy": "builder"
+    },
+    "Name": {
+      "type": "string"
+    },
+    "Description": {
+      "type": "text"
+    },
+    "Address": {
+      "type": "text"
+    },
+    "PhoneNumber": {
+      "type": "biginteger"
+    },
+    "WebsiteURL": {
+      "type": "string"
+    },
+    "top_builder": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::top-builder.top-builder",
+      "inversedBy": "builders"
+    },
+    "email": {
+      "type": "email"
+    },
+    "LicenceNumber": {
+      "type": "string"
+    },
+    "YearsOfExperience": {
+      "type": "integer"
+    },
+    "ReraNo": {
+      "type": "string"
+    },
+    "segregation": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::segregation.segregation",
+      "inversedBy": "builders"
+    }
+  }
+}

@@ -8,65 +8,137 @@
     "description": ""
   },
   "options": {
+    "timestamps": true,
     "draftAndPublish": true
   },
-  "pluginOptions": {},
   "attributes": {
-    "buyTpe": {
-      "type": "enumeration",
-      "enum": [
-        "sell",
-        "rent"
-      ],
-      "required": true,
-      "default": "sell"
+    "name": {
+      "type": "string",
+      "required": true
     },
-    "propertyCategory": {
+    "type": {
       "type": "enumeration",
       "enum": [
-        "residential",
-        "commertial"
-      ]
-    },
-    "propertyType": {
-      "type": "enumeration",
-      "enum": [
-        "FlatApartement",
-        "BuilderFloor",
-        "IndependentHouse",
-        "Penthouse",
-        "ResidentialLand",
-        "FarmHouse",
-        "ServicedApartments",
-        "OneRKStudioApartements",
-        "VillamentRowHouse",
-        "AgriculturalLandPlots",
-        "Others",
-        "Officespace",
-        "ShopRetail",
-        "Hospitality",
-        "Storages",
-        "IndustrialPlotLand",
-        "CommercicalPlotLand",
-        "Industry",
-        "OtherCommercialSpaces"
+        "Villa",
+        "Apartment"
       ],
       "required": true
     },
-    "location": {
+    "address": {
+      "type": "text",
+      "required": true
+    },
+    "city": {
+      "type": "string",
+      "required": true
+    },
+    "state": {
+      "type": "string",
+      "required": true
+    },
+    "zipCode": {
+      "type": "string",
+      "required": true
+    },
+    "landmark": {
       "type": "string"
     },
-    "locationName": {
+    "latitude": {
+      "type": "float"
+    },
+    "longitude": {
+      "type": "float"
+    },
+    "price": {
+      "type": "decimal",
+      "required": true
+    },
+    "currency": {
+      "type": "string",
+      "required": true
+    },
+    "size": {
+      "type": "float",
+      "required": true
+    },
+    "sizeUnit": {
+      "type": "string",
+      "default": "sqft"
+    },
+    "bedrooms": {
+      "type": "integer",
+      "required": true
+    },
+    "bathrooms": {
+      "type": "integer",
+      "required": true
+    },
+    "floors": {
+      "type": "integer"
+    },
+    "developer": {
+      "type": "string",
+      "required": true
+    },
+    "reraId": {
       "type": "string"
     },
-    "propertyName": {
-      "type": "string"
+    "possessionDate": {
+      "type": "date"
     },
-    "houseNo": {
-      "type": "string"
+    "status": {
+      "type": "enumeration",
+      "enum": [
+        "Under Construction",
+        "Ready to Move"
+      ]
     },
-    "ownershipType": {
-      "type": "string"
+    "propertyNumber": {
+      "type": "string",
+      "unique": true,
+      "required": true
+    },
+    "description": {
+      "type": "richtext"
+    },
+    "photos": {
+      "type": "media",
+      "multiple": true,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "videos": {
+      "type": "media",
+      "multiple": true,
+      "allowedTypes": [
+        "videos"
+      ]
+    },
+    "brochure": {
+      "type": "media",
+      "allowedTypes": [
+        "files"
+      ]
+    },
+    "floorPlans": {
+      "type": "media",
+      "multiple": true,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "builder": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::builder.builder",
+      "inversedBy": "properties"
+    },
+    "recommended_project": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::recommended-project.recommended-project",
+      "inversedBy": "properties"
     }
   }
 }

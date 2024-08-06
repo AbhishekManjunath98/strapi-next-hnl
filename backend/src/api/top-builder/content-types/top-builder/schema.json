@@ -1,0 +1,21 @@
+{
+  "kind": "collectionType",
+  "collectionName": "top_builders",
+  "info": {
+    "singularName": "top-builder",
+    "pluralName": "top-builders",
+    "displayName": "TopBuilder"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "builders": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::builder.builder",
+      "mappedBy": "top_builder"
+    }
+  }
+}

@@ -585,6 +585,53 @@ export interface PluginContentReleasesReleaseAction
   };
 }
 
+export interface PluginI18NLocale extends Schema.CollectionType {
+  collectionName: 'i18n_locale';
+  info: {
+    singularName: 'locale';
+    pluralName: 'locales';
+    collectionName: 'locales';
+    displayName: 'Locale';
+    description: '';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  pluginOptions: {
+    'content-manager': {
+      visible: false;
+    };
+    'content-type-builder': {
+      visible: false;
+    };
+  };
+  attributes: {
+    name: Attribute.String &
+      Attribute.SetMinMax<
+        {
+          min: 1;
+          max: 50;
+        },
+        number
+      >;
+    code: Attribute.String & Attribute.Unique;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'plugin::i18n.locale',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'plugin::i18n.locale',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface PluginUsersPermissionsPermission
   extends Schema.CollectionType {
   collectionName: 'up_permissions';
@@ -745,46 +792,53 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
   };
 }
 
-export interface PluginI18NLocale extends Schema.CollectionType {
-  collectionName: 'i18n_locale';
+export interface ApiBuilderBuilder extends Schema.CollectionType {
+  collectionName: 'builders';
   info: {
-    singularName: 'locale';
-    pluralName: 'locales';
-    collectionName: 'locales';
-    displayName: 'Locale';
+    singularName: 'builder';
+    pluralName: 'builders';
+    displayName: 'Builder';
     description: '';
   };
   options: {
-    draftAndPublish: false;
-  };
-  pluginOptions: {
-    'content-manager': {
-      visible: false;
-    };
-    'content-type-builder': {
-      visible: false;
-    };
+    draftAndPublish: true;
   };
   attributes: {
-    name: Attribute.String &
-      Attribute.SetMinMax<
-        {
-          min: 1;
-          max: 50;
-        },
-        number
-      >;
-    code: Attribute.String & Attribute.Unique;
+    properties: Attribute.Relation<
+      'api::builder.builder',
+      'oneToMany',
+      'api::property.property'
+    >;
+    Name: Attribute.String;
+    Description: Attribute.Text;
+    Address: Attribute.Text;
+    PhoneNumber: Attribute.BigInteger;
+    WebsiteURL: Attribute.String;
+    top_builder: Attribute.Relation<
+      'api::builder.builder',
+      'manyToOne',
+      'api::top-builder.top-builder'
+    >;
+    email: Attribute.Email;
+    LicenceNumber: Attribute.String;
+    YearsOfExperience: Attribute.Integer;
+    ReraNo: Attribute.String;
+    segregation: Attribute.Relation<
+      'api::builder.builder',
+      'manyToOne',
+      'api::segregation.segregation'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
-      'plugin::i18n.locale',
+      'api::builder.builder',
       'oneToOne',
       'admin::user'
     > &
       Attribute.Private;
     updatedBy: Attribute.Relation<
-      'plugin::i18n.locale',
+      'api::builder.builder',
       'oneToOne',
       'admin::user'
     > &
@@ -870,42 +924,46 @@ export interface ApiPropertyProperty extends Schema.CollectionType {
     description: '';
   };
   options: {
+    timestamps: true;
     draftAndPublish: true;
   };
   attributes: {
-    buyTpe: Attribute.Enumeration<['sell', 'rent']> &
-      Attribute.Required &
-      Attribute.DefaultTo<'sell'>;
-    propertyCategory: Attribute.Enumeration<['residential', 'commertial']>;
-    propertyType: Attribute.Enumeration<
-      [
-        'FlatApartement',
-        'BuilderFloor',
-        'IndependentHouse',
-        'Penthouse',
-        'ResidentialLand',
-        'FarmHouse',
-        'ServicedApartments',
-        'OneRKStudioApartements',
-        'VillamentRowHouse',
-        'AgriculturalLandPlots',
-        'Others',
-        'Officespace',
-        'ShopRetail',
-        'Hospitality',
-        'Storages',
-        'IndustrialPlotLand',
-        'CommercicalPlotLand',
-        'Industry',
-        'OtherCommercialSpaces'
-      ]
-    > &
-      Attribute.Required;
-    location: Attribute.String;
-    locationName: Attribute.String;
-    propertyName: Attribute.String;
-    houseNo: Attribute.String;
-    ownershipType: Attribute.String;
+    name: Attribute.String & Attribute.Required;
+    type: Attribute.Enumeration<['Villa', 'Apartment']> & Attribute.Required;
+    address: Attribute.Text & Attribute.Required;
+    city: Attribute.String & Attribute.Required;
+    state: Attribute.String & Attribute.Required;
+    zipCode: Attribute.String & Attribute.Required;
+    landmark: Attribute.String;
+    latitude: Attribute.Float;
+    longitude: Attribute.Float;
+    price: Attribute.Decimal & Attribute.Required;
+    currency: Attribute.String & Attribute.Required;
+    size: Attribute.Float & Attribute.Required;
+    sizeUnit: Attribute.String & Attribute.DefaultTo<'sqft'>;
+    bedrooms: Attribute.Integer & Attribute.Required;
+    bathrooms: Attribute.Integer & Attribute.Required;
+    floors: Attribute.Integer;
+    developer: Attribute.String & Attribute.Required;
+    reraId: Attribute.String;
+    possessionDate: Attribute.Date;
+    status: Attribute.Enumeration<['Under Construction', 'Ready to Move']>;
+    propertyNumber: Attribute.String & Attribute.Required & Attribute.Unique;
+    description: Attribute.RichText;
+    photos: Attribute.Media;
+    videos: Attribute.Media;
+    brochure: Attribute.Media;
+    floorPlans: Attribute.Media;
+    builder: Attribute.Relation<
+      'api::property.property',
+      'manyToOne',
+      'api::builder.builder'
+    >;
+    recommended_project: Attribute.Relation<
+      'api::property.property',
+      'manyToOne',
+      'api::recommended-project.recommended-project'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -917,6 +975,75 @@ export interface ApiPropertyProperty extends Schema.CollectionType {
       Attribute.Private;
     updatedBy: Attribute.Relation<
       'api::property.property',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiRecommendedProjectRecommendedProject
+  extends Schema.CollectionType {
+  collectionName: 'recommended_projects';
+  info: {
+    singularName: 'recommended-project';
+    pluralName: 'recommended-projects';
+    displayName: 'RecommendedProject';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    properties: Attribute.Relation<
+      'api::recommended-project.recommended-project',
+      'oneToMany',
+      'api::property.property'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::recommended-project.recommended-project',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::recommended-project.recommended-project',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiSegregationSegregation extends Schema.CollectionType {
+  collectionName: 'segregations';
+  info: {
+    singularName: 'segregation';
+    pluralName: 'segregations';
+    displayName: 'Segregation';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    builders: Attribute.Relation<
+      'api::segregation.segregation',
+      'oneToMany',
+      'api::builder.builder'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::segregation.segregation',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::segregation.segregation',
       'oneToOne',
       'admin::user'
     > &
@@ -961,6 +1088,40 @@ export interface ApiSummarySummary extends Schema.CollectionType {
   };
 }
 
+export interface ApiTopBuilderTopBuilder extends Schema.CollectionType {
+  collectionName: 'top_builders';
+  info: {
+    singularName: 'top-builder';
+    pluralName: 'top-builders';
+    displayName: 'TopBuilder';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    builders: Attribute.Relation<
+      'api::top-builder.top-builder',
+      'oneToMany',
+      'api::builder.builder'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::top-builder.top-builder',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::top-builder.top-builder',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 declare module '@strapi/types' {
   export module Shared {
     export interface ContentTypes {
@@ -975,14 +1136,18 @@ declare module '@strapi/types' {
       'plugin::upload.folder': PluginUploadFolder;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
+      'plugin::i18n.locale': PluginI18NLocale;
       'plugin::users-permissions.permission': PluginUsersPermissionsPermission;
       'plugin::users-permissions.role': PluginUsersPermissionsRole;
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
-      'plugin::i18n.locale': PluginI18NLocale;
+      'api::builder.builder': ApiBuilderBuilder;
       'api::global.global': ApiGlobalGlobal;
       'api::home-page.home-page': ApiHomePageHomePage;
       'api::property.property': ApiPropertyProperty;
+      'api::recommended-project.recommended-project': ApiRecommendedProjectRecommendedProject;
+      'api::segregation.segregation': ApiSegregationSegregation;
       'api::summary.summary': ApiSummarySummary;
+      'api::top-builder.top-builder': ApiTopBuilderTopBuilder;
     }
   }
 }
