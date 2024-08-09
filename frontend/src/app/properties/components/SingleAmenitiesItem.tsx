@@ -1,4 +1,6 @@
-import IconWrapper from "../common/IconWrapper";
+// import IconWrapper from "../common/IconWrapper";
+
+import IconWrapper from "./IconWrapper";
 
 export interface SingleAmenitiesItemType {
   label: string;

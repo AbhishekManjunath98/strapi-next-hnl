@@ -792,6 +792,35 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
   };
 }
 
+export interface ApiBhkBhk extends Schema.CollectionType {
+  collectionName: 'bhks';
+  info: {
+    singularName: 'bhk';
+    pluralName: 'bhks';
+    displayName: 'bhk';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    bhkType: Attribute.Enumeration<
+      ['one', 'two', 'three', 'four', 'five', 'fivePlus']
+    >;
+    floorPlan: Attribute.JSON;
+    builtUpArea: Attribute.Integer;
+    price: Attribute.Decimal;
+    measurementUnit: Attribute.Enumeration<['sqft']>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<'api::bhk.bhk', 'oneToOne', 'admin::user'> &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<'api::bhk.bhk', 'oneToOne', 'admin::user'> &
+      Attribute.Private;
+  };
+}
+
 export interface ApiBuilderBuilder extends Schema.CollectionType {
   collectionName: 'builders';
   info: {
@@ -823,11 +852,7 @@ export interface ApiBuilderBuilder extends Schema.CollectionType {
     LicenceNumber: Attribute.String;
     YearsOfExperience: Attribute.Integer;
     ReraNo: Attribute.String;
-    segregation: Attribute.Relation<
-      'api::builder.builder',
-      'manyToOne',
-      'api::segregation.segregation'
-    >;
+    logo: Attribute.Media;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -924,33 +949,30 @@ export interface ApiPropertyProperty extends Schema.CollectionType {
     description: '';
   };
   options: {
-    timestamps: true;
     draftAndPublish: true;
   };
   attributes: {
     name: Attribute.String & Attribute.Required;
     type: Attribute.Enumeration<['Villa', 'Apartment']> & Attribute.Required;
     address: Attribute.Text & Attribute.Required;
-    city: Attribute.String & Attribute.Required;
     state: Attribute.String & Attribute.Required;
     zipCode: Attribute.String & Attribute.Required;
     landmark: Attribute.String;
     latitude: Attribute.Float;
     longitude: Attribute.Float;
-    price: Attribute.Decimal & Attribute.Required;
-    currency: Attribute.String & Attribute.Required;
+    startPrice: Attribute.Decimal & Attribute.Required;
     size: Attribute.Float & Attribute.Required;
     sizeUnit: Attribute.String & Attribute.DefaultTo<'sqft'>;
     bedrooms: Attribute.Integer & Attribute.Required;
     bathrooms: Attribute.Integer & Attribute.Required;
     floors: Attribute.Integer;
-    developer: Attribute.String & Attribute.Required;
     reraId: Attribute.String;
     possessionDate: Attribute.Date;
-    status: Attribute.Enumeration<['Under Construction', 'Ready to Move']>;
-    propertyNumber: Attribute.String & Attribute.Required & Attribute.Unique;
+    status: Attribute.Enumeration<
+      ['Under Construction', 'Ready to Move', 'New Launch']
+    >;
     description: Attribute.RichText;
-    photos: Attribute.Media;
+    photos: Attribute.Media & Attribute.Required;
     videos: Attribute.Media;
     brochure: Attribute.Media;
     floorPlans: Attribute.Media;
@@ -964,6 +986,19 @@ export interface ApiPropertyProperty extends Schema.CollectionType {
       'manyToOne',
       'api::recommended-project.recommended-project'
     >;
+    segregations: Attribute.Relation<
+      'api::property.property',
+      'manyToMany',
+      'api::segregation.segregation'
+    >;
+    city: Attribute.Enumeration<['Bengaluru']>;
+    endPrice: Attribute.Decimal;
+    bhks: Attribute.Relation<
+      'api::property.property',
+      'oneToMany',
+      'api::bhk.bhk'
+    >;
+    logo: Attribute.Media;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1023,16 +1058,18 @@ export interface ApiSegregationSegregation extends Schema.CollectionType {
     singularName: 'segregation';
     pluralName: 'segregations';
     displayName: 'Segregation';
+    description: '';
   };
   options: {
     draftAndPublish: true;
   };
   attributes: {
-    builders: Attribute.Relation<
+    properties: Attribute.Relation<
       'api::segregation.segregation',
-      'oneToMany',
-      'api::builder.builder'
+      'manyToMany',
+      'api::property.property'
     >;
+    CategoryName: Attribute.String;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1140,6 +1177,7 @@ declare module '@strapi/types' {
       'plugin::users-permissions.permission': PluginUsersPermissionsPermission;
       'plugin::users-permissions.role': PluginUsersPermissionsRole;
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
+      'api::bhk.bhk': ApiBhkBhk;
       'api::builder.builder': ApiBuilderBuilder;
       'api::global.global': ApiGlobalGlobal;
       'api::home-page.home-page': ApiHomePageHomePage;

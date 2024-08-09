@@ -51,11 +51,15 @@
     "ReraNo": {
       "type": "string"
     },
-    "segregation": {
-      "type": "relation",
-      "relation": "manyToOne",
-      "target": "api::segregation.segregation",
-      "inversedBy": "builders"
+    "logo": {
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ],
+      "type": "media",
+      "multiple": false
     }
   }
 }

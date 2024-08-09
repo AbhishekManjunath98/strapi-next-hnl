@@ -8,7 +8,6 @@
     "description": ""
   },
   "options": {
-    "timestamps": true,
     "draftAndPublish": true
   },
   "attributes": {
@@ -28,10 +27,6 @@
       "type": "text",
       "required": true
     },
-    "city": {
-      "type": "string",
-      "required": true
-    },
     "state": {
       "type": "string",
       "required": true
@@ -49,12 +44,8 @@
     "longitude": {
       "type": "float"
     },
-    "price": {
+    "startPrice": {
       "type": "decimal",
-      "required": true
-    },
-    "currency": {
-      "type": "string",
       "required": true
     },
     "size": {
@@ -76,10 +67,6 @@
     "floors": {
       "type": "integer"
     },
-    "developer": {
-      "type": "string",
-      "required": true
-    },
     "reraId": {
       "type": "string"
     },
@@ -90,13 +77,9 @@
       "type": "enumeration",
       "enum": [
         "Under Construction",
-        "Ready to Move"
+        "Ready to Move",
+        "New Launch"
       ]
-    },
-    "propertyNumber": {
-      "type": "string",
-      "unique": true,
-      "required": true
     },
     "description": {
       "type": "richtext"
@@ -104,6 +87,7 @@
     "photos": {
       "type": "media",
       "multiple": true,
+      "required": true,
       "allowedTypes": [
         "images"
       ]
@@ -111,12 +95,15 @@
     "videos": {
       "type": "media",
       "multiple": true,
+      "required": false,
       "allowedTypes": [
         "videos"
       ]
     },
     "brochure": {
       "type": "media",
+      "multiple": false,
+      "required": false,
       "allowedTypes": [
         "files"
       ]
@@ -124,6 +111,7 @@
     "floorPlans": {
       "type": "media",
       "multiple": true,
+      "required": false,
       "allowedTypes": [
         "images"
       ]
@@ -139,6 +127,37 @@
       "relation": "manyToOne",
       "target": "api::recommended-project.recommended-project",
       "inversedBy": "properties"
+    },
+    "segregations": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::segregation.segregation",
+      "inversedBy": "properties"
+    },
+    "city": {
+      "type": "enumeration",
+      "enum": [
+        "Bengaluru"
+      ]
+    },
+    "endPrice": {
+      "type": "decimal"
+    },
+    "bhks": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::bhk.bhk"
+    },
+    "logo": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
     }
   }
 }

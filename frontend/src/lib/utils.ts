@@ -41,7 +41,7 @@ export function flattenAttributes(data: any): any {
       flattened[key] = flattenAttributes(data[key]);
     }
   }
-
+  console.log(`flattened: ${flattened}`)
   return flattened;
 }
 

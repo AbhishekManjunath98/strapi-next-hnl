@@ -1,0 +1,42 @@
+{
+  "kind": "collectionType",
+  "collectionName": "bhks",
+  "info": {
+    "singularName": "bhk",
+    "pluralName": "bhks",
+    "displayName": "bhk",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "bhkType": {
+      "type": "enumeration",
+      "enum": [
+        "one",
+        "two",
+        "three",
+        "four",
+        "five",
+        "fivePlus"
+      ]
+    },
+    "floorPlan": {
+      "type": "json"
+    },
+    "builtUpArea": {
+      "type": "integer"
+    },
+    "price": {
+      "type": "decimal"
+    },
+    "measurementUnit": {
+      "type": "enumeration",
+      "enum": [
+        "sqft"
+      ]
+    }
+  }
+}

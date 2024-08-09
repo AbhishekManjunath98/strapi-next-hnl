@@ -2,6 +2,8 @@ import qs from "qs";
 import { getAuthToken } from "./services/get-token";
 
 import { flattenAttributes, getStrapiURL } from "@/lib/utils";
+import axios, { AxiosResponse } from "axios";
+import { Root } from "postcss";
 
 const baseUrl = getStrapiURL();
 
@@ -10,15 +12,17 @@ async function fetchData(url: string) {
 
   const headers = {
     method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${authToken}`,
-    },
+    // headers: {
+    //   "Content-Type": "application/json",
+    //   Authorization: `Bearer ${authToken}`,
+    // },
   };
 
   try {
-    const response = await fetch(url, authToken ? headers : {});
+    const response = await fetch(url);
+    console.log(`respsonse ${response}`)
     const data = await response.json();
+    console.log(`mydata: ${data["data"]}`);
     return flattenAttributes(data);
   } catch (error) {
     console.error("Error fetching data:", error);
@@ -103,6 +107,46 @@ export async function getSummaries(queryString: string, currentPage: number) {
   return fetchData(url.href);
 }
 
+
+export async function getProperties(queryString: string, currentPage: number) {
+  const PAGE_SIZE = 4;
+
+
+  // const query = qs.stringify({
+  //   sort: ["createdAt:desc"],
+  //   filters: {
+  //     $or: [
+  //       { title: { $containsi: queryString } },
+  //       { summary: { $containsi: queryString } },
+  //     ],
+  //   },
+  //   pagination: {
+  //     pageSize: PAGE_SIZE,
+  //     page: currentPage,
+  //   },
+  // });
+
+  // const url = new URL("/api/properties", baseUrl);
+  // // url.search = query;
+  // console.log(`url: ${url}`);
+
+  // return fetchData(url.href);
+
+  // const getPropertyById = (id: string) => {
+    return axios({
+      method: "get",
+      url: `${baseUrl}/api/properties?populate=*`,
+      // headers: {
+      //   "Content-Type": "application/json",
+      // },
+    }).then((res) => {
+      console.log(`res.data: ${res.data}`)
+      return res.data;
+    });
+  // };
+}
+
 export async function getSummaryById(summaryId: string) {
   return fetchData(`${baseUrl}/api/summaries/${summaryId}`);
 }
+

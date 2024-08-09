@@ -229,12 +229,12 @@ export default function PropertyDetailPage(props: any) {
           <Tabs sx={tabStyle} value='' variant='scrollable' scrollButtons allowScrollButtonsMobile centered>
             <Tab sx={tabStyle} label='Photos & Videos' onClick={() => scrollTo("gallery")} />
             <Tab sx={tabStyle} label='Overview' onClick={() => scrollTo("overview")} />
-            {/* <Tab sx={tabStyle} label='Price List' onClick={() => scrollTo("price-list")} />
-            <Tab sx={tabStyle} label='Floor Plans' onClick={() => scrollTo("floor-plan")} /> */}
+            <Tab sx={tabStyle} label='Price List' onClick={() => scrollTo("price-list")} />
+            <Tab sx={tabStyle} label='Floor Plans' onClick={() => scrollTo("floor-plan")} />
             <Tab sx={tabStyle} label='Amenities' onClick={() => scrollTo("amenities")} />
             <Tab sx={tabStyle} label='Specifications' onClick={() => scrollTo("specifications")} />
             <Tab sx={tabStyle} label='Location & Landmark' onClick={() => scrollTo("location")} />
-            <Tab sx={tabStyle} label='Rating & Reviews' onClick={() => scrollTo("reviews")} />
+            {/* <Tab sx={tabStyle} label='Rating & Reviews' onClick={() => scrollTo("reviews")} /> */}
           </Tabs>
         </Box>
       </React.Fragment>
@@ -276,10 +276,10 @@ export default function PropertyDetailPage(props: any) {
         <Spacer size='1.5' /> */}
         {/* <InterestedReadsLayout />
         <Spacer size='2.5' /> */}
-        <TopBuildersLayout />
-        <Spacer size='1.5' />
-        <BottomSectionLayout />
-        <Spacer size='2.5' />
+        {/* <TopBuildersLayout /> */}
+        {/* <Spacer size='1.5' /> */}
+        {/* <BottomSectionLayout /> */}
+        {/* <Spacer size='2.5' /> */}
         {/* <ComparePropertyLayout />
         <Spacer size='2.5' /> */}
       </div>

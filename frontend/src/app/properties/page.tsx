@@ -120,7 +120,7 @@ const FeaturedProjects: FC = () => {
     //       <ChevronLeftIcon className="h-6 w-6 text-gray-600" />
     //     </button>
     //     <div className="flex space-x-4 overflow-x-scroll no-scrollbar">
-    <div className="grid grid-cols-3 gap-4">
+    <div className="flex flex-wrap justify-around">
           {projects.map(project => (
         <Link href={`/properties/${project.id}`}>
             <div key={project.id} className="min-w-[250px] md:min-w-[300px] lg:min-w-[350px] bg-white shadow-md rounded-md p-4">
